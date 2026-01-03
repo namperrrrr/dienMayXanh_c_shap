@@ -1,5 +1,6 @@
 using quanLyDienMayXanh.Controller;
 using quanLyDienMayXanh.domain;
+using quanLyDienMayXanh.view.kho;
 using quanLyDienMayXanh.view.nhansu;
 using System;
 using System.Drawing;
@@ -165,7 +166,7 @@ namespace quanLyDienMayXanh.view
         {
             // Kho
             AddMenuItem("Sản phẩm Kho", "https://img.icons8.com/fluency/48/product.png",
-                new string[] { "Danh sách sản phẩm", "Nhập kho", "Kiểm kê", "Cảnh báo tồn" });
+                new string[] { "Danh sách sản phẩm", "Nhập kho", "Danh mục", "Nhà cung cấp" });
 
             // Nhân sự
             var nsMenu = AddMenuItem("Nhân sự hệ thống", "https://img.icons8.com/fluency/48/conference-call.png",
@@ -315,6 +316,7 @@ namespace quanLyDienMayXanh.view
                 case "Quản lý nhân viên": childForm = new FormNhanVien(); break;
                 case "Quản lý tài khoản": childForm = new FormTaiKhoan(); break;
                 case "Quản lý chức vụ": childForm = new FormChucVu(); break;
+                case "Danh sách sản phẩm": childForm = new FormSanPham(); break;
                 // Thêm các case khác ở đây cho Kho, POS...
                 default:
                     this.pnlCards.Controls.Add(new Label
