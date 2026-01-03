@@ -119,20 +119,31 @@ namespace quanLyDienMayXanh.view.kho
 
         public void SetTrangThaiNut(bool dangChonHang)
         {
-            // Logic màu sắc giống FormNhanVien
             btnThem.Enabled = !dangChonHang;
             btnXoa.Enabled = dangChonHang;
-            // Lưu ý: Nhập kho thường không cho Sửa để đảm bảo tính toàn vẹn dữ liệu kho,
-            // nên nút Sửa tôi sẽ ẩn hoặc disable. Ở đây tôi disable.
-            btnSua.Enabled = false;
 
+            // MỞ khóa nút Sửa khi đang chọn hàng
+            btnSua.Enabled = dangChonHang;
+
+            // Màu sắc nút
             btnThem.BackColor = !dangChonHang ? Color.FromArgb(76, 175, 80) : Color.LightGray;
             btnXoa.BackColor = dangChonHang ? Color.FromArgb(244, 67, 54) : Color.LightGray;
-            btnSua.BackColor = Color.LightGray;
+            // Thêm màu cho nút Sửa (ví dụ màu cam)
+            btnSua.BackColor = dangChonHang ? Color.Orange : Color.LightGray;
 
-            // Khóa/Mở các ô nhập liệu quan trọng khi đang xem chi tiết
-            cboSanPham.Enabled = !dangChonHang;
-            txtSoLuongNhap.Enabled = !dangChonHang;
+            // --- LOGIC QUAN TRỌNG: KHÓA/MỞ Ô NHẬP LIỆU ---
+
+            // Các thông tin KHÔNG được sửa khi đang chọn phiếu (để đảm bảo toàn vẹn dữ liệu)
+            cboSanPham.Enabled = !dangChonHang;     // Không cho đổi sản phẩm
+            cboNhaCungCap.Enabled = !dangChonHang;  // Không cho đổi NCC
+            cboNhanVien.Enabled = !dangChonHang;    // Không cho đổi nhân viên
+            txtMaPhieu.Enabled = !dangChonHang;     // Không cho sửa mã phiếu
+
+            // Các thông tin ĐƯỢC PHÉP sửa
+            // Luôn luôn cho phép nhập liệu ở các ô này (dù là Thêm mới hay Sửa)
+            txtSoLuongNhap.Enabled = true;
+            txtDonGia.Enabled = true;
+            txtGhiChu.Enabled = true;
         }
 
         public string GetIDPhieuDangChon() => idDangChon;
@@ -175,6 +186,7 @@ namespace quanLyDienMayXanh.view.kho
             }
         }
 
+
         private void btnThem_Click(object sender, EventArgs e)
         {
             controller.ThemPhieu();
@@ -193,6 +205,11 @@ namespace quanLyDienMayXanh.view.kho
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            controller.SuaPhieu();
         }
     }
 }

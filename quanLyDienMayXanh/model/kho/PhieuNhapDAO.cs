@@ -92,6 +92,64 @@ namespace quanLyDienMayXanh.model.kho
             finally { ConnectDB.CloseConnection(conn); }
         }
 
+        public bool Update(PhieuNhap pn)
+        {
+            MySqlConnection conn = ConnectDB.GetConnection();
+            if (conn == null) return false;
+            MySqlTransaction trans = null;
+
+            try
+            {
+                trans = conn.BeginTransaction();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conn;
+                cmd.Transaction = trans;
+
+                // BƯỚC 1: Lấy số lượng cũ từ Database để tính lệch
+                cmd.CommandText = "SELECT SoLuong FROM phieu_nhap WHERE ID = @id";
+                cmd.Parameters.AddWithValue("@id", pn.ID);
+                object result = cmd.ExecuteScalar();
+
+                if (result == null) throw new Exception("Không tìm thấy phiếu nhập cần sửa!");
+                int slCu = Convert.ToInt32(result);
+
+                // BƯỚC 2: Cập nhật thông tin phiếu nhập
+                cmd.CommandText = @"UPDATE phieu_nhap 
+                            SET SoLuong = @sl, DonGia = @dg, ThanhTien = @tt, GhiChu = @gc 
+                            WHERE ID = @id";
+                // Reset parameters để add lại từ đầu cho câu lệnh Update
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@id", pn.ID);
+                cmd.Parameters.AddWithValue("@sl", pn.SoLuong);
+                cmd.Parameters.AddWithValue("@dg", pn.DonGia);
+                cmd.Parameters.AddWithValue("@tt", pn.ThanhTien);
+                cmd.Parameters.AddWithValue("@gc", pn.GhiChu);
+                cmd.ExecuteNonQuery();
+
+                // BƯỚC 3: Cập nhật kho (Cộng thêm phần chênh lệch)
+                // Nếu nhập thêm (Mới > Cũ) -> Tồn kho tăng
+                // Nếu giảm bớt (Mới < Cũ) -> Tồn kho giảm
+                int chenhLech = pn.SoLuong - slCu;
+                if (chenhLech != 0)
+                {
+                    cmd.CommandText = "UPDATE sanpham SET TonKho = TonKho + @chenhLech WHERE MaSP = @maSP";
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@chenhLech", chenhLech);
+                    cmd.Parameters.AddWithValue("@maSP", pn.MaSP);
+                    cmd.ExecuteNonQuery();
+                }
+
+                trans.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                trans?.Rollback();
+                MessageBox.Show("Lỗi cập nhật: " + ex.Message);
+                return false;
+            }
+            finally { ConnectDB.CloseConnection(conn); }
+        }
         // 3. Xóa phiếu nhập (Trừ lại tồn kho)
         public bool Delete(int id, string maSP, int soLuongDaNhap)
         {

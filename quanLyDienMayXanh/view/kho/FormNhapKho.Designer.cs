@@ -381,6 +381,7 @@ namespace quanLyDienMayXanh.view.kho
             btnSua.TabIndex = 1;
             btnSua.Text = "Sửa";
             btnSua.UseVisualStyleBackColor = false;
+            btnSua.Click += btnSua_Click;
             // 
             // btnXoa
             // 

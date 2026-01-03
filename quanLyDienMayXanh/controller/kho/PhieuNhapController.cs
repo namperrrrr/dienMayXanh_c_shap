@@ -66,7 +66,30 @@ namespace quanLyDienMayXanh.Controller.kho
                 ShowBang(dao.GetAll());
             }
         }
+        // Thêm vào class PhieuNhapController
+        public void SuaPhieu()
+        {
+            // Lấy ID phiếu đang chọn
+            string idStr = view.GetIDPhieuDangChon();
+            if (string.IsNullOrEmpty(idStr)) return;
 
+            // Lấy dữ liệu mới từ giao diện
+            PhieuNhap pn = view.GetPhieuNhapFromInput();
+            if (pn == null) return;
+
+            pn.ID = int.Parse(idStr);
+
+            if (MessageBox.Show("Bạn có chắc muốn sửa phiếu này? Tồn kho sẽ được cập nhật lại theo số lượng mới.",
+                                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (dao.Update(pn))
+                {
+                    MessageBox.Show("Cập nhật thành công!");
+                    view.ResetForm(); // Xóa trắng form và reset trạng thái nút
+                    ShowBang(dao.GetAll()); // Load lại bảng
+                }
+            }
+        }
         public void XoaPhieu()
         {
             // Cần ID, MaSP, SoLuong đã nhập để trừ lại kho
