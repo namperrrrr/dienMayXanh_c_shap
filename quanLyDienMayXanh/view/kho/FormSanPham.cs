@@ -102,10 +102,21 @@ namespace quanLyDienMayXanh.view.kho
 
         public void SetTrangThaiNut(bool dangChonHang)
         {
+            // 1. Xử lý bật/tắt nút (như cũ)
             btnThem.Enabled = !dangChonHang;
             btnSua.Enabled = dangChonHang;
             btnXoa.Enabled = dangChonHang;
-            txtMaSP.Enabled = !dangChonHang;
+            txtMaSP.Enabled = !dangChonHang; // Giữ nguyên logic khóa mã SP khi đang chọn
+
+            // 2. Xử lý màu sắc (Đồng bộ theo FormNhanVien của nhóm trưởng)
+            // Nút Thêm: Màu xanh lá (khi active) - Xám (khi disable)
+            btnThem.BackColor = !dangChonHang ? Color.FromArgb(76, 175, 80) : Color.LightGray;
+
+            // Nút Sửa: Màu vàng (khi active) - Xám (khi disable)
+            btnSua.BackColor = dangChonHang ? Color.FromArgb(255, 193, 7) : Color.LightGray;
+
+            // Nút Xóa: Màu đỏ (khi active) - Xám (khi disable)
+            btnXoa.BackColor = dangChonHang ? Color.FromArgb(244, 67, 54) : Color.LightGray;
         }
 
         public void SetDuLieuDanhMuc(List<DanhMuc> list)
