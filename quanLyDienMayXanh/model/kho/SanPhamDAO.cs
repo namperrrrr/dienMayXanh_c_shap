@@ -104,9 +104,8 @@ namespace quanLyDienMayXanh.model.kho
 
         public int Delete(string maSP)
         {
-            // Thay vì xóa vĩnh viễn, ta chuyển trạng thái sang NGUNG_KINH_DOANH để giữ lịch sử đơn hàng
-            string sql = "UPDATE SanPham SET TrangThaiKinhDoanh='NGUNG_KINH_DOANH' WHERE MaSP=@MaSP";
-            // Nếu muốn xóa hẳn: string sql = "DELETE FROM SanPham WHERE MaSP=@MaSP";
+            // Xóa hẳn khỏi Database
+            string sql = "DELETE FROM SanPham WHERE MaSP=@MaSP";
 
             using (MySqlConnection cons = ConnectDB.GetConnection())
             {
@@ -117,7 +116,24 @@ namespace quanLyDienMayXanh.model.kho
                     cmd.Parameters.AddWithValue("@MaSP", maSP);
                     return cmd.ExecuteNonQuery();
                 }
-                catch (Exception e) { Console.WriteLine("Lỗi Delete SP: " + e.Message); return 0; }
+                catch (MySqlException e)
+                {
+                    // Lỗi 1451 là lỗi khóa ngoại (Foreign Key) - Dữ liệu đang được sử dụng ở bảng khác
+                    if (e.Number == 1451)
+                    {
+                        Console.WriteLine("Không thể xóa: Sản phẩm đã phát sinh giao dịch (Đơn hàng/Nhập kho).");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Lỗi Delete SP: " + e.Message);
+                    }
+                    return 0;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Lỗi hệ thống: " + e.Message);
+                    return 0;
+                }
             }
         }
 

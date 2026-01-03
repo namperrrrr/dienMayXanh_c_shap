@@ -57,11 +57,7 @@ namespace quanLyDienMayXanh.Controller
             view.dgvSanPham.Rows.Clear();
             foreach (SanPham sp in list)
             {
-                if (sp.TrangThaiKinhDoanh == "NGUNG_KINH_DOANH") continue; // Ẩn sp đã xóa
-
-                // Load ảnh từ URL (Optional - Cần xử lý bất đồng bộ hoặc try catch để tránh treo)
-                // Tạm thời để null hoặc ảnh mặc định
-                // Thêm dòng, cột hình ảnh để null (View tự load)
+                //if (sp.TrangThaiKinhDoanh == "NGUNG_KINH_DOANH") continue; // Ẩn sp đã xóa
                 int index = view.dgvSanPham.Rows.Add(
                     sp.MaSP,
                     null,
@@ -158,17 +154,21 @@ namespace quanLyDienMayXanh.Controller
                 return;
             }
 
-            if (MessageBox.Show($"Bạn có chắc muốn xóa/ngừng kinh doanh sản phẩm {maSP}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            // Đổi câu thông báo cho phù hợp với xóa vĩnh viễn
+            if (MessageBox.Show($"CẢNH BÁO: Bạn có chắc muốn xóa VĨNH VIỄN sản phẩm {maSP}?\nDữ liệu không thể khôi phục sau khi xóa.",
+                "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 if (spDao.Delete(maSP) > 0)
                 {
-                    MessageBox.Show("Đã xóa thành công!");
+                    MessageBox.Show("Đã xóa sản phẩm thành công!");
                     LoadDataLenBang();
                     view.ResetForm();
                 }
                 else
                 {
-                    MessageBox.Show("Xóa thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Thông báo rõ ràng hơn vì xóa cứng thường thất bại do ràng buộc dữ liệu
+                    MessageBox.Show("Xóa thất bại!\n\nNguyên nhân phổ biến: Sản phẩm này đã có trong Đơn hàng, Phiếu nhập hoặc Phiếu bảo hành nên không thể xóa hẳn khỏi CSDL.",
+                        "Lỗi ràng buộc dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
