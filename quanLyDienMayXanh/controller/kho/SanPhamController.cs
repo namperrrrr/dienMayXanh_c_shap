@@ -3,8 +3,8 @@ using quanLyDienMayXanh.model.kho;
 using quanLyDienMayXanh.view.kho;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Drawing; // Để load ảnh nếu cần
+using System.Windows.Forms;
 
 namespace quanLyDienMayXanh.Controller
 {
@@ -61,18 +61,18 @@ namespace quanLyDienMayXanh.Controller
 
                 // Load ảnh từ URL (Optional - Cần xử lý bất đồng bộ hoặc try catch để tránh treo)
                 // Tạm thời để null hoặc ảnh mặc định
-                Image img = null;
-
-                view.dgvSanPham.Rows.Add(
+                // Thêm dòng, cột hình ảnh để null (View tự load)
+                int index = view.dgvSanPham.Rows.Add(
                     sp.MaSP,
-                    img,
+                    null,
                     sp.TenSP,
-                    sp.MaDanhMuc, // Hoặc tên danh mục nếu join
+                    sp.MaDanhMuc,
                     sp.ThuongHieu,
                     sp.TonKho,
                     sp.DonViTinh,
-                    sp.GiaBan.ToString("N0") // Format tiền
-                );
+                    sp.GiaBan.ToString("N0")
+                        );
+                view.dgvSanPham.Rows[index].Tag = sp;
             }
         }
 
@@ -86,7 +86,7 @@ namespace quanLyDienMayXanh.Controller
                 view.txtGiaNhap.Text = sp.GiaNhap.ToString("0.##");
                 view.txtBaoHanh.Text = sp.ThoiGianBaoHanh.ToString();
                 view.txtMoTa.Text = sp.MoTa;
-                view.txtHinhAnh.Text = sp.HinhAnh;
+                
                 view.cboTrangThaiHang.Text = sp.TrangThaiHang;
                 // Set combobox Danh mục
                 foreach (DanhMuc item in view.cboDanhMuc.Items)

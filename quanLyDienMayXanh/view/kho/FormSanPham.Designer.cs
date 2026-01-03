@@ -32,14 +32,14 @@
             lblTitle = new Label();
             pnlTop = new Panel();
             grpThongTin = new GroupBox();
+            btnChonAnh = new Button();
+            picHinhAnh = new PictureBox();
             btnLamMoi = new Button();
             btnXoa = new Button();
             btnSua = new Button();
             btnThem = new Button();
             txtMoTa = new TextBox();
             lblMoTa = new Label();
-            txtHinhAnh = new TextBox();
-            lblHinhAnh = new Label();
             txtBaoHanh = new TextBox();
             lblBaoHanh = new Label();
             cboTrangThaiHang = new ComboBox();
@@ -60,8 +60,8 @@
             lblMaSP = new Label();
             pnlCenter = new Panel();
             dgvSanPham = new DataGridView();
-            colHinhAnh = new DataGridViewImageColumn();
             colMaSP = new DataGridViewTextBoxColumn();
+            colHinhAnh = new DataGridViewImageColumn();
             colTenSP = new DataGridViewTextBoxColumn();
             colDanhMuc = new DataGridViewTextBoxColumn();
             colThuongHieu = new DataGridViewTextBoxColumn();
@@ -76,6 +76,7 @@
             lblTuKhoa = new Label();
             pnlTop.SuspendLayout();
             grpThongTin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picHinhAnh).BeginInit();
             pnlCenter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvSanPham).BeginInit();
             grpTimKiem.SuspendLayout();
@@ -106,14 +107,14 @@
             // 
             // grpThongTin
             // 
+            grpThongTin.Controls.Add(btnChonAnh);
+            grpThongTin.Controls.Add(picHinhAnh);
             grpThongTin.Controls.Add(btnLamMoi);
             grpThongTin.Controls.Add(btnXoa);
             grpThongTin.Controls.Add(btnSua);
             grpThongTin.Controls.Add(btnThem);
             grpThongTin.Controls.Add(txtMoTa);
             grpThongTin.Controls.Add(lblMoTa);
-            grpThongTin.Controls.Add(txtHinhAnh);
-            grpThongTin.Controls.Add(lblHinhAnh);
             grpThongTin.Controls.Add(txtBaoHanh);
             grpThongTin.Controls.Add(lblBaoHanh);
             grpThongTin.Controls.Add(cboTrangThaiHang);
@@ -142,12 +143,31 @@
             grpThongTin.TabStop = false;
             grpThongTin.Text = " THÔNG TIN CHI TIẾT ";
             // 
+            // btnChonAnh
+            // 
+            btnChonAnh.Location = new Point(706, 154);
+            btnChonAnh.Name = "btnChonAnh";
+            btnChonAnh.Size = new Size(66, 44);
+            btnChonAnh.TabIndex = 27;
+            btnChonAnh.Text = "Chọn Ảnh:";
+            btnChonAnh.UseVisualStyleBackColor = true;
+            btnChonAnh.Click += btnChonAnh_Click;
+            // 
+            // picHinhAnh
+            // 
+            picHinhAnh.Location = new Point(778, 124);
+            picHinhAnh.Name = "picHinhAnh";
+            picHinhAnh.Size = new Size(135, 101);
+            picHinhAnh.SizeMode = PictureBoxSizeMode.Zoom;
+            picHinhAnh.TabIndex = 26;
+            picHinhAnh.TabStop = false;
+            // 
             // btnLamMoi
             // 
             btnLamMoi.BackColor = Color.FromArgb(33, 150, 243);
             btnLamMoi.FlatStyle = FlatStyle.Flat;
             btnLamMoi.ForeColor = Color.White;
-            btnLamMoi.Location = new Point(660, 230);
+            btnLamMoi.Location = new Point(660, 236);
             btnLamMoi.Name = "btnLamMoi";
             btnLamMoi.Size = new Size(100, 35);
             btnLamMoi.TabIndex = 25;
@@ -159,7 +179,7 @@
             btnXoa.BackColor = Color.FromArgb(244, 67, 54);
             btnXoa.FlatStyle = FlatStyle.Flat;
             btnXoa.ForeColor = Color.White;
-            btnXoa.Location = new Point(540, 230);
+            btnXoa.Location = new Point(540, 236);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(100, 35);
             btnXoa.TabIndex = 24;
@@ -171,7 +191,7 @@
             btnSua.BackColor = Color.FromArgb(255, 193, 7);
             btnSua.FlatStyle = FlatStyle.Flat;
             btnSua.ForeColor = Color.White;
-            btnSua.Location = new Point(420, 230);
+            btnSua.Location = new Point(420, 236);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(100, 35);
             btnSua.TabIndex = 23;
@@ -183,7 +203,7 @@
             btnThem.BackColor = Color.FromArgb(76, 175, 80);
             btnThem.FlatStyle = FlatStyle.Flat;
             btnThem.ForeColor = Color.White;
-            btnThem.Location = new Point(300, 230);
+            btnThem.Location = new Point(300, 236);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(100, 35);
             btnThem.TabIndex = 22;
@@ -193,10 +213,10 @@
             // txtMoTa
             // 
             txtMoTa.Font = new Font("Arial", 10F);
-            txtMoTa.Location = new Point(786, 137);
+            txtMoTa.Location = new Point(773, 68);
             txtMoTa.Multiline = true;
             txtMoTa.Name = "txtMoTa";
-            txtMoTa.Size = new Size(180, 50);
+            txtMoTa.Size = new Size(228, 50);
             txtMoTa.TabIndex = 21;
             // 
             // lblMoTa
@@ -204,37 +224,18 @@
             lblMoTa.AutoSize = true;
             lblMoTa.Font = new Font("Arial", 9F, FontStyle.Bold);
             lblMoTa.ForeColor = Color.Black;
-            lblMoTa.Location = new Point(706, 140);
+            lblMoTa.Location = new Point(706, 89);
             lblMoTa.Name = "lblMoTa";
             lblMoTa.Size = new Size(41, 15);
             lblMoTa.TabIndex = 20;
             lblMoTa.Text = "Mô tả:";
-            // 
-            // txtHinhAnh
-            // 
-            txtHinhAnh.Font = new Font("Arial", 10F);
-            txtHinhAnh.Location = new Point(440, 137);
-            txtHinhAnh.Name = "txtHinhAnh";
-            txtHinhAnh.Size = new Size(180, 23);
-            txtHinhAnh.TabIndex = 19;
-            // 
-            // lblHinhAnh
-            // 
-            lblHinhAnh.AutoSize = true;
-            lblHinhAnh.Font = new Font("Arial", 9F, FontStyle.Bold);
-            lblHinhAnh.ForeColor = Color.Black;
-            lblHinhAnh.Location = new Point(361, 140);
-            lblHinhAnh.Name = "lblHinhAnh";
-            lblHinhAnh.Size = new Size(59, 15);
-            lblHinhAnh.TabIndex = 18;
-            lblHinhAnh.Text = "Link Ảnh:";
             // 
             // txtBaoHanh
             // 
             txtBaoHanh.Font = new Font("Arial", 10F);
             txtBaoHanh.Location = new Point(100, 136);
             txtBaoHanh.Name = "txtBaoHanh";
-            txtBaoHanh.Size = new Size(180, 23);
+            txtBaoHanh.Size = new Size(224, 23);
             txtBaoHanh.TabIndex = 17;
             // 
             // lblBaoHanh
@@ -242,7 +243,7 @@
             lblBaoHanh.AutoSize = true;
             lblBaoHanh.Font = new Font("Arial", 9F, FontStyle.Bold);
             lblBaoHanh.ForeColor = Color.Black;
-            lblBaoHanh.Location = new Point(30, 140);
+            lblBaoHanh.Location = new Point(37, 140);
             lblBaoHanh.Name = "lblBaoHanh";
             lblBaoHanh.Size = new Size(63, 15);
             lblBaoHanh.TabIndex = 16;
@@ -256,7 +257,7 @@
             cboTrangThaiHang.Items.AddRange(new object[] { "MOI", "CU", "TRUNG_BAY" });
             cboTrangThaiHang.Location = new Point(440, 187);
             cboTrangThaiHang.Name = "cboTrangThaiHang";
-            cboTrangThaiHang.Size = new Size(180, 24);
+            cboTrangThaiHang.Size = new Size(225, 24);
             cboTrangThaiHang.TabIndex = 15;
             // 
             // lblTrangThai
@@ -264,7 +265,7 @@
             lblTrangThai.AutoSize = true;
             lblTrangThai.Font = new Font("Arial", 9F, FontStyle.Bold);
             lblTrangThai.ForeColor = Color.Black;
-            lblTrangThai.Location = new Point(361, 190);
+            lblTrangThai.Location = new Point(371, 190);
             lblTrangThai.Name = "lblTrangThai";
             lblTrangThai.Size = new Size(66, 15);
             lblTrangThai.TabIndex = 14;
@@ -275,9 +276,9 @@
             txtDVT.Font = new Font("Arial", 10F);
             txtDVT.FormattingEnabled = true;
             txtDVT.Items.AddRange(new object[] { "Cái", "Chiếc", "Bộ", "Hộp", "Kg" });
-            txtDVT.Location = new Point(786, 87);
+            txtDVT.Location = new Point(440, 136);
             txtDVT.Name = "txtDVT";
-            txtDVT.Size = new Size(180, 24);
+            txtDVT.Size = new Size(225, 24);
             txtDVT.TabIndex = 13;
             // 
             // lblDVT
@@ -285,7 +286,7 @@
             lblDVT.AutoSize = true;
             lblDVT.Font = new Font("Arial", 9F, FontStyle.Bold);
             lblDVT.ForeColor = Color.Black;
-            lblDVT.Location = new Point(706, 90);
+            lblDVT.Location = new Point(370, 139);
             lblDVT.Name = "lblDVT";
             lblDVT.Size = new Size(71, 15);
             lblDVT.TabIndex = 12;
@@ -296,7 +297,7 @@
             txtGiaBan.Font = new Font("Arial", 10F);
             txtGiaBan.Location = new Point(440, 87);
             txtGiaBan.Name = "txtGiaBan";
-            txtGiaBan.Size = new Size(180, 23);
+            txtGiaBan.Size = new Size(225, 23);
             txtGiaBan.TabIndex = 11;
             // 
             // lblGiaBan
@@ -304,7 +305,7 @@
             lblGiaBan.AutoSize = true;
             lblGiaBan.Font = new Font("Arial", 9F, FontStyle.Bold);
             lblGiaBan.ForeColor = Color.Black;
-            lblGiaBan.Location = new Point(361, 90);
+            lblGiaBan.Location = new Point(371, 90);
             lblGiaBan.Name = "lblGiaBan";
             lblGiaBan.Size = new Size(52, 15);
             lblGiaBan.TabIndex = 10;
@@ -315,7 +316,7 @@
             txtGiaNhap.Font = new Font("Arial", 10F);
             txtGiaNhap.Location = new Point(100, 86);
             txtGiaNhap.Name = "txtGiaNhap";
-            txtGiaNhap.Size = new Size(180, 23);
+            txtGiaNhap.Size = new Size(224, 23);
             txtGiaNhap.TabIndex = 9;
             // 
             // lblGiaNhap
@@ -323,7 +324,7 @@
             lblGiaNhap.AutoSize = true;
             lblGiaNhap.Font = new Font("Arial", 9F, FontStyle.Bold);
             lblGiaNhap.ForeColor = Color.Black;
-            lblGiaNhap.Location = new Point(30, 90);
+            lblGiaNhap.Location = new Point(37, 90);
             lblGiaNhap.Name = "lblGiaNhap";
             lblGiaNhap.Size = new Size(59, 15);
             lblGiaNhap.TabIndex = 8;
@@ -334,7 +335,7 @@
             txtThuongHieu.Font = new Font("Arial", 10F);
             txtThuongHieu.Location = new Point(100, 186);
             txtThuongHieu.Name = "txtThuongHieu";
-            txtThuongHieu.Size = new Size(180, 23);
+            txtThuongHieu.Size = new Size(224, 23);
             txtThuongHieu.TabIndex = 7;
             // 
             // lblThuongHieu
@@ -342,7 +343,7 @@
             lblThuongHieu.AutoSize = true;
             lblThuongHieu.Font = new Font("Arial", 9F, FontStyle.Bold);
             lblThuongHieu.ForeColor = Color.Black;
-            lblThuongHieu.Location = new Point(30, 190);
+            lblThuongHieu.Location = new Point(37, 190);
             lblThuongHieu.Name = "lblThuongHieu";
             lblThuongHieu.Size = new Size(39, 15);
             lblThuongHieu.TabIndex = 6;
@@ -353,9 +354,9 @@
             cboDanhMuc.DropDownStyle = ComboBoxStyle.DropDownList;
             cboDanhMuc.Font = new Font("Arial", 10F);
             cboDanhMuc.FormattingEnabled = true;
-            cboDanhMuc.Location = new Point(786, 37);
+            cboDanhMuc.Location = new Point(773, 36);
             cboDanhMuc.Name = "cboDanhMuc";
-            cboDanhMuc.Size = new Size(180, 24);
+            cboDanhMuc.Size = new Size(228, 24);
             cboDanhMuc.TabIndex = 5;
             // 
             // lblDanhMuc
@@ -374,7 +375,7 @@
             txtTenSP.Font = new Font("Arial", 10F);
             txtTenSP.Location = new Point(440, 37);
             txtTenSP.Name = "txtTenSP";
-            txtTenSP.Size = new Size(180, 23);
+            txtTenSP.Size = new Size(225, 23);
             txtTenSP.TabIndex = 3;
             // 
             // lblTenSP
@@ -382,7 +383,7 @@
             lblTenSP.AutoSize = true;
             lblTenSP.Font = new Font("Arial", 9F, FontStyle.Bold);
             lblTenSP.ForeColor = Color.Black;
-            lblTenSP.Location = new Point(361, 40);
+            lblTenSP.Location = new Point(371, 40);
             lblTenSP.Name = "lblTenSP";
             lblTenSP.Size = new Size(50, 15);
             lblTenSP.TabIndex = 2;
@@ -393,7 +394,7 @@
             txtMaSP.Font = new Font("Arial", 10F);
             txtMaSP.Location = new Point(100, 36);
             txtMaSP.Name = "txtMaSP";
-            txtMaSP.Size = new Size(180, 23);
+            txtMaSP.Size = new Size(224, 23);
             txtMaSP.TabIndex = 1;
             // 
             // lblMaSP
@@ -401,7 +402,7 @@
             lblMaSP.AutoSize = true;
             lblMaSP.Font = new Font("Arial", 9F, FontStyle.Bold);
             lblMaSP.ForeColor = Color.Black;
-            lblMaSP.Location = new Point(30, 40);
+            lblMaSP.Location = new Point(37, 40);
             lblMaSP.Name = "lblMaSP";
             lblMaSP.Size = new Size(46, 15);
             lblMaSP.TabIndex = 0;
@@ -432,7 +433,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dgvSanPham.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvSanPham.ColumnHeadersHeight = 40;
-            dgvSanPham.Columns.AddRange(new DataGridViewColumn[] { colMaSP,colHinhAnh , colTenSP, colDanhMuc, colThuongHieu, colTonKho, colDVT, colGiaBan });
+            dgvSanPham.Columns.AddRange(new DataGridViewColumn[] { colMaSP, colHinhAnh, colTenSP, colDanhMuc, colThuongHieu, colTonKho, colDVT, colGiaBan });
             dgvSanPham.Dock = DockStyle.Fill;
             dgvSanPham.EnableHeadersVisualStyles = false;
             dgvSanPham.Location = new Point(10, 80);
@@ -442,17 +443,18 @@
             dgvSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSanPham.Size = new Size(1080, 250);
             dgvSanPham.TabIndex = 1;
+            dgvSanPham.CellFormatting += dgvSanPham_CellFormatting;
+            // 
+            // colMaSP
+            // 
+            colMaSP.HeaderText = "Mã SP";
+            colMaSP.Name = "colMaSP";
             // 
             // colHinhAnh
             // 
             colHinhAnh.HeaderText = "Ảnh";
             colHinhAnh.ImageLayout = DataGridViewImageCellLayout.Zoom;
             colHinhAnh.Name = "colHinhAnh";
-            // 
-            // colMaSP
-            // 
-            colMaSP.HeaderText = "Mã SP";
-            colMaSP.Name = "colMaSP";
             // 
             // colTenSP
             // 
@@ -563,6 +565,7 @@
             pnlTop.ResumeLayout(false);
             grpThongTin.ResumeLayout(false);
             grpThongTin.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picHinhAnh).EndInit();
             pnlCenter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvSanPham).EndInit();
             grpTimKiem.ResumeLayout(false);
@@ -581,7 +584,6 @@
         public System.Windows.Forms.TextBox txtGiaNhap;
         public System.Windows.Forms.TextBox txtGiaBan;
         public System.Windows.Forms.TextBox txtBaoHanh;
-        public System.Windows.Forms.TextBox txtHinhAnh;
         public System.Windows.Forms.TextBox txtMoTa;
         public System.Windows.Forms.ComboBox cboDanhMuc;
         public System.Windows.Forms.ComboBox txtDVT;
@@ -606,7 +608,6 @@
         private System.Windows.Forms.Label lblDVT;
         private System.Windows.Forms.Label lblTrangThai;
         private System.Windows.Forms.Label lblBaoHanh;
-        private System.Windows.Forms.Label lblHinhAnh;
         private System.Windows.Forms.Label lblMoTa;
         private System.Windows.Forms.Label lblTuKhoa;
         private System.Windows.Forms.Label lblLocDM;
@@ -618,5 +619,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colTonKho;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDVT;
         private System.Windows.Forms.DataGridViewTextBoxColumn colGiaBan;
+        private Button btnChonAnh;
+        private PictureBox picHinhAnh;
     }
 }
