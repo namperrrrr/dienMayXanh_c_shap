@@ -1,5 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using quanLyDienMayXanh.domain;
+using quanLyDienMayXanh.domain.kho;
 using System;
 using System.Collections.Generic;
 

@@ -1,4 +1,4 @@
-﻿using quanLyDienMayXanh.domain;
+﻿using quanLyDienMayXanh.domain.kho;
 using quanLyDienMayXanh.model.kho;
 using quanLyDienMayXanh.model.nhansu; // Dùng NhanVienDAO có sẵn
 using quanLyDienMayXanh.view.kho;
