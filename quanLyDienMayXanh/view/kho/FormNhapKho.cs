@@ -19,6 +19,7 @@ namespace quanLyDienMayXanh.view.kho
             dgvPhieuNhap.AutoGenerateColumns = false;
             controller = new PhieuNhapController(this);
             dgvPhieuNhap.DataBindingComplete += (s, e) => CapNhatTongTienNhap();
+            SetTrangThaiNut(false);
         }
 
         private void CapNhatTongTienNhap()
@@ -47,8 +48,7 @@ namespace quanLyDienMayXanh.view.kho
             cboSanPham.SelectedIndex = -1;
         }
 
-        // ĐÃ XÓA hàm SetDuLieuNCC vì dùng TextBox nhập tay
-
+     
         public void SetDuLieuNhanVien(List<NhanVien> list)
         {
             cboNhanVien.DataSource = list;

@@ -25,6 +25,7 @@ namespace quanLyDienMayXanh.view.kho
             // Đăng ký sự kiện để hiện ảnh lên bảng danh sách
             dgvSanPham.CellFormatting += dgvSanPham_CellFormatting;
             dgvSanPham.RowTemplate.Height = 80; // Chỉnh dòng cao lên để thấy ảnh
+            SetTrangThaiNut(false);
         }
         // Hàm lấy dữ liệu từ các ô input để tạo đối tượng SanPham
         public SanPham GetSanPhamFromInput()

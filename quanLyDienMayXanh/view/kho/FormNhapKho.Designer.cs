@@ -84,7 +84,7 @@
             lblTitle.ForeColor = Color.FromArgb(33, 150, 243);
             lblTitle.Location = new Point(0, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(1242, 60);
+            lblTitle.Size = new Size(1245, 60);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "QUẢN LÝ NHẬP KHO";
             lblTitle.TextAlign = ContentAlignment.MiddleCenter;
@@ -95,10 +95,10 @@
             pnlRight.Controls.Add(layoutInput);
             pnlRight.Controls.Add(pnlButtons);
             pnlRight.Dock = DockStyle.Right;
-            pnlRight.Location = new Point(910, 60);
+            pnlRight.Location = new Point(913, 60);
             pnlRight.Name = "pnlRight";
             pnlRight.Padding = new Padding(9, 8, 9, 8);
-            pnlRight.Size = new Size(332, 609);
+            pnlRight.Size = new Size(332, 607);
             pnlRight.TabIndex = 1;
             // 
             // layoutInput
@@ -125,7 +125,7 @@
             layoutInput.FlowDirection = FlowDirection.TopDown;
             layoutInput.Location = new Point(9, 8);
             layoutInput.Name = "layoutInput";
-            layoutInput.Size = new Size(314, 525);
+            layoutInput.Size = new Size(314, 523);
             layoutInput.TabIndex = 0;
             layoutInput.WrapContents = false;
             // 
@@ -320,7 +320,7 @@
             pnlButtons.Controls.Add(btnXoa, 0, 1);
             pnlButtons.Controls.Add(btnLamMoi, 1, 1);
             pnlButtons.Dock = DockStyle.Bottom;
-            pnlButtons.Location = new Point(9, 533);
+            pnlButtons.Location = new Point(9, 531);
             pnlButtons.Margin = new Padding(0);
             pnlButtons.Name = "pnlButtons";
             pnlButtons.RowCount = 2;
@@ -436,7 +436,7 @@
             dgvPhieuNhap.RowHeadersVisible = false;
             dgvPhieuNhap.RowTemplate.Height = 35;
             dgvPhieuNhap.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPhieuNhap.Size = new Size(910, 569);
+            dgvPhieuNhap.Size = new Size(913, 567);
             dgvPhieuNhap.TabIndex = 2;
             dgvPhieuNhap.CellClick += dgvPhieuNhap_CellClick;
             // 
@@ -516,14 +516,14 @@
             pnlBottomLeft.BackColor = Color.White;
             pnlBottomLeft.Controls.Add(lblTongTienNhap);
             pnlBottomLeft.Dock = DockStyle.Bottom;
-            pnlBottomLeft.Location = new Point(0, 629);
+            pnlBottomLeft.Location = new Point(0, 627);
             pnlBottomLeft.Name = "pnlBottomLeft";
-            pnlBottomLeft.Size = new Size(910, 40);
+            pnlBottomLeft.Size = new Size(913, 40);
             pnlBottomLeft.TabIndex = 3;
             // 
             // lblTongTienNhap
             // 
-            lblTongTienNhap.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblTongTienNhap.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblTongTienNhap.AutoSize = true;
             lblTongTienNhap.Font = new Font("Arial", 12F, FontStyle.Bold);
             lblTongTienNhap.ForeColor = Color.Red;
@@ -538,7 +538,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1242, 669);
+            ClientSize = new Size(1245, 667);
             Controls.Add(dgvPhieuNhap);
             Controls.Add(pnlBottomLeft);
             Controls.Add(pnlRight);
