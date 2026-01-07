@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace quanLyDienMayXanh.domain
+namespace quanLyDienMayXanh.domain.kho
 {
     public class SanPham
     {

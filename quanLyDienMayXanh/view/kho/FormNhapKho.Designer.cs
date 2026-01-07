@@ -38,8 +38,6 @@ namespace quanLyDienMayXanh.view.kho
             txtSoLuongNhap = new TextBox();
             lblDonGia = new Label();
             txtDonGia = new TextBox();
-            lblThanhTien = new Label();
-            txtThanhTien = new TextBox();
             lblGhiChu = new Label();
             txtGhiChu = new TextBox();
             pnlButtons = new TableLayoutPanel();
@@ -57,10 +55,13 @@ namespace quanLyDienMayXanh.view.kho
             colThanhTien = new DataGridViewTextBoxColumn();
             colNgayNhap = new DataGridViewTextBoxColumn();
             colGhiChu = new DataGridViewTextBoxColumn();
+            pnlBottomLeft = new Panel();
+            lblTongTienNhap = new Label();
             pnlRight.SuspendLayout();
             layoutInput.SuspendLayout();
             pnlButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPhieuNhap).BeginInit();
+            pnlBottomLeft.SuspendLayout();
             SuspendLayout();
             // 
             // lblTitle
@@ -80,6 +81,7 @@ namespace quanLyDienMayXanh.view.kho
             // 
             pnlRight.BackColor = Color.White;
             pnlRight.Controls.Add(layoutInput);
+            pnlRight.Controls.Add(pnlButtons);
             pnlRight.Dock = DockStyle.Right;
             pnlRight.Location = new Point(910, 60);
             pnlRight.Margin = new Padding(3, 2, 3, 2);
@@ -106,17 +108,14 @@ namespace quanLyDienMayXanh.view.kho
             layoutInput.Controls.Add(txtSoLuongNhap);
             layoutInput.Controls.Add(lblDonGia);
             layoutInput.Controls.Add(txtDonGia);
-            layoutInput.Controls.Add(lblThanhTien);
-            layoutInput.Controls.Add(txtThanhTien);
             layoutInput.Controls.Add(lblGhiChu);
             layoutInput.Controls.Add(txtGhiChu);
-            layoutInput.Controls.Add(pnlButtons);
             layoutInput.Dock = DockStyle.Fill;
             layoutInput.FlowDirection = FlowDirection.TopDown;
             layoutInput.Location = new Point(9, 8);
             layoutInput.Margin = new Padding(3, 2, 3, 2);
             layoutInput.Name = "layoutInput";
-            layoutInput.Size = new Size(314, 593);
+            layoutInput.Size = new Size(314, 525);
             layoutInput.TabIndex = 0;
             layoutInput.WrapContents = false;
             // 
@@ -283,36 +282,11 @@ namespace quanLyDienMayXanh.view.kho
             txtDonGia.TabIndex = 7;
             txtDonGia.Text = "0";
             // 
-            // lblThanhTien
-            // 
-            lblThanhTien.AutoSize = true;
-            lblThanhTien.Font = new Font("Arial", 10F, FontStyle.Bold);
-            lblThanhTien.ForeColor = Color.Red;
-            lblThanhTien.Location = new Point(3, 404);
-            lblThanhTien.Margin = new Padding(3, 0, 3, 4);
-            lblThanhTien.Name = "lblThanhTien";
-            lblThanhTien.Size = new Size(85, 16);
-            lblThanhTien.TabIndex = 8;
-            lblThanhTien.Text = "Thành tiền:";
-            // 
-            // txtThanhTien
-            // 
-            txtThanhTien.BackColor = SystemColors.Info;
-            txtThanhTien.Font = new Font("Arial", 10F, FontStyle.Bold);
-            txtThanhTien.ForeColor = Color.Red;
-            txtThanhTien.Location = new Point(3, 426);
-            txtThanhTien.Margin = new Padding(3, 2, 3, 8);
-            txtThanhTien.Name = "txtThanhTien";
-            txtThanhTien.ReadOnly = true;
-            txtThanhTien.Size = new Size(289, 23);
-            txtThanhTien.TabIndex = 8;
-            txtThanhTien.Text = "0";
-            // 
             // lblGhiChu
             // 
             lblGhiChu.AutoSize = true;
             lblGhiChu.Font = new Font("Arial", 10F, FontStyle.Bold);
-            lblGhiChu.Location = new Point(3, 457);
+            lblGhiChu.Location = new Point(3, 404);
             lblGhiChu.Margin = new Padding(3, 0, 3, 4);
             lblGhiChu.Name = "lblGhiChu";
             lblGhiChu.Size = new Size(65, 16);
@@ -322,7 +296,7 @@ namespace quanLyDienMayXanh.view.kho
             // txtGhiChu
             // 
             txtGhiChu.Font = new Font("Arial", 10F);
-            txtGhiChu.Location = new Point(3, 479);
+            txtGhiChu.Location = new Point(3, 426);
             txtGhiChu.Margin = new Padding(3, 2, 3, 11);
             txtGhiChu.Name = "txtGhiChu";
             txtGhiChu.Size = new Size(289, 23);
@@ -337,14 +311,15 @@ namespace quanLyDienMayXanh.view.kho
             pnlButtons.Controls.Add(btnSua, 1, 0);
             pnlButtons.Controls.Add(btnXoa, 0, 1);
             pnlButtons.Controls.Add(btnLamMoi, 1, 1);
-            pnlButtons.Location = new Point(3, 515);
-            pnlButtons.Margin = new Padding(3, 2, 3, 15);
+            pnlButtons.Dock = DockStyle.Bottom;
+            pnlButtons.Location = new Point(9, 533);
+            pnlButtons.Margin = new Padding(0);
             pnlButtons.Name = "pnlButtons";
             pnlButtons.RowCount = 2;
             pnlButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             pnlButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            pnlButtons.Size = new Size(289, 68);
-            pnlButtons.TabIndex = 10;
+            pnlButtons.Size = new Size(314, 68);
+            pnlButtons.TabIndex = 1;
             // 
             // btnThem
             // 
@@ -358,7 +333,7 @@ namespace quanLyDienMayXanh.view.kho
             btnThem.Location = new Point(3, 2);
             btnThem.Margin = new Padding(3, 2, 3, 2);
             btnThem.Name = "btnThem";
-            btnThem.Size = new Size(138, 30);
+            btnThem.Size = new Size(151, 30);
             btnThem.TabIndex = 0;
             btnThem.Text = "Thêm";
             btnThem.UseVisualStyleBackColor = false;
@@ -374,10 +349,10 @@ namespace quanLyDienMayXanh.view.kho
             btnSua.FlatStyle = FlatStyle.Flat;
             btnSua.Font = new Font("Arial", 10F, FontStyle.Bold);
             btnSua.ForeColor = Color.White;
-            btnSua.Location = new Point(147, 2);
+            btnSua.Location = new Point(160, 2);
             btnSua.Margin = new Padding(3, 2, 3, 2);
             btnSua.Name = "btnSua";
-            btnSua.Size = new Size(139, 30);
+            btnSua.Size = new Size(151, 30);
             btnSua.TabIndex = 1;
             btnSua.Text = "Sửa";
             btnSua.UseVisualStyleBackColor = false;
@@ -395,7 +370,7 @@ namespace quanLyDienMayXanh.view.kho
             btnXoa.Location = new Point(3, 36);
             btnXoa.Margin = new Padding(3, 2, 3, 2);
             btnXoa.Name = "btnXoa";
-            btnXoa.Size = new Size(138, 30);
+            btnXoa.Size = new Size(151, 30);
             btnXoa.TabIndex = 2;
             btnXoa.Text = "Xóa";
             btnXoa.UseVisualStyleBackColor = false;
@@ -410,10 +385,10 @@ namespace quanLyDienMayXanh.view.kho
             btnLamMoi.FlatStyle = FlatStyle.Flat;
             btnLamMoi.Font = new Font("Arial", 10F, FontStyle.Bold);
             btnLamMoi.ForeColor = Color.White;
-            btnLamMoi.Location = new Point(147, 36);
+            btnLamMoi.Location = new Point(160, 36);
             btnLamMoi.Margin = new Padding(3, 2, 3, 2);
             btnLamMoi.Name = "btnLamMoi";
-            btnLamMoi.Size = new Size(139, 30);
+            btnLamMoi.Size = new Size(151, 30);
             btnLamMoi.TabIndex = 3;
             btnLamMoi.Text = "Làm mới";
             btnLamMoi.UseVisualStyleBackColor = false;
@@ -454,7 +429,7 @@ namespace quanLyDienMayXanh.view.kho
             dgvPhieuNhap.RowHeadersWidth = 51;
             dgvPhieuNhap.RowTemplate.Height = 35;
             dgvPhieuNhap.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPhieuNhap.Size = new Size(910, 609);
+            dgvPhieuNhap.Size = new Size(910, 569);
             dgvPhieuNhap.TabIndex = 2;
             dgvPhieuNhap.CellClick += dgvPhieuNhap_CellClick;
             // 
@@ -530,6 +505,28 @@ namespace quanLyDienMayXanh.view.kho
             colGhiChu.Name = "colGhiChu";
             colGhiChu.ReadOnly = true;
             // 
+            // pnlBottomLeft
+            // 
+            pnlBottomLeft.BackColor = Color.White;
+            pnlBottomLeft.Controls.Add(lblTongTienNhap);
+            pnlBottomLeft.Dock = DockStyle.Bottom;
+            pnlBottomLeft.Location = new Point(0, 629);
+            pnlBottomLeft.Name = "pnlBottomLeft";
+            pnlBottomLeft.Size = new Size(910, 40);
+            pnlBottomLeft.TabIndex = 3;
+            // 
+            // lblTongTienNhap
+            // 
+            lblTongTienNhap.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblTongTienNhap.AutoSize = true;
+            lblTongTienNhap.Font = new Font("Arial", 12F, FontStyle.Bold);
+            lblTongTienNhap.ForeColor = Color.Red;
+            lblTongTienNhap.Location = new Point(710, 11);
+            lblTongTienNhap.Name = "lblTongTienNhap";
+            lblTongTienNhap.Size = new Size(182, 19);
+            lblTongTienNhap.TabIndex = 0;
+            lblTongTienNhap.Text = "Tổng tiền nhập: 0 VND";
+            // 
             // FormNhapKho
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -537,6 +534,7 @@ namespace quanLyDienMayXanh.view.kho
             BackColor = Color.White;
             ClientSize = new Size(1242, 669);
             Controls.Add(dgvPhieuNhap);
+            Controls.Add(pnlBottomLeft);
             Controls.Add(pnlRight);
             Controls.Add(lblTitle);
             Margin = new Padding(3, 2, 3, 2);
@@ -548,28 +546,27 @@ namespace quanLyDienMayXanh.view.kho
             layoutInput.PerformLayout();
             pnlButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvPhieuNhap).EndInit();
+            pnlBottomLeft.ResumeLayout(false);
+            pnlBottomLeft.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        // Controls Public/Private để truy cập từ Controller
+        // (Giữ nguyên phần khai báo biến)
         public System.Windows.Forms.Label lblTitle;
         public System.Windows.Forms.DataGridView dgvPhieuNhap;
         private System.Windows.Forms.Panel pnlRight;
         private System.Windows.Forms.FlowLayoutPanel layoutInput;
         private System.Windows.Forms.Label lblHeaderForm;
 
-        // Labels & Inputs
-        private System.Windows.Forms.Label lblMaPhieu, lblNhanVien, lblNCC, lblSanPham, lblTonKho, lblSLNhap, lblDonGia, lblThanhTien, lblGhiChu;
-        public System.Windows.Forms.TextBox txtMaPhieu, txtTonHienTai, txtSoLuongNhap, txtDonGia, txtThanhTien, txtGhiChu;
+        private System.Windows.Forms.Label lblMaPhieu, lblNhanVien, lblNCC, lblSanPham, lblTonKho, lblSLNhap, lblDonGia, lblGhiChu;
+        public System.Windows.Forms.TextBox txtMaPhieu, txtTonHienTai, txtSoLuongNhap, txtDonGia, txtGhiChu;
         public System.Windows.Forms.ComboBox cboNhanVien, cboNhaCungCap, cboSanPham;
 
-        // Buttons
         private System.Windows.Forms.TableLayoutPanel pnlButtons;
         public System.Windows.Forms.Button btnThem, btnSua, btnXoa, btnLamMoi, btnThoat;
 
-        // Columns
         private System.Windows.Forms.DataGridViewTextBoxColumn colID;
         private System.Windows.Forms.DataGridViewTextBoxColumn colMaPhieu;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTenSP;
@@ -578,5 +575,8 @@ namespace quanLyDienMayXanh.view.kho
         private System.Windows.Forms.DataGridViewTextBoxColumn colThanhTien;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNgayNhap;
         private System.Windows.Forms.DataGridViewTextBoxColumn colGhiChu;
+
+        private System.Windows.Forms.Panel pnlBottomLeft;
+        private System.Windows.Forms.Label lblTongTienNhap;
     }
 }

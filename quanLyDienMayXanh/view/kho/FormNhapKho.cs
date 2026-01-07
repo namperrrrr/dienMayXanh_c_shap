@@ -1,5 +1,6 @@
 ﻿using quanLyDienMayXanh.Controller.kho;
 using quanLyDienMayXanh.domain;
+using quanLyDienMayXanh.domain.kho;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace quanLyDienMayXanh.view.kho
     {
         private PhieuNhapController controller;
         private string idDangChon = null; // Lưu ID dòng đang chọn để xóa
+
         public FormNhapKho()
         {
             InitializeComponent();
@@ -25,10 +27,29 @@ namespace quanLyDienMayXanh.view.kho
             // Gọi Controller
             controller = new PhieuNhapController(this);
 
-            // Sự kiện tính tiền tự động
-            txtSoLuongNhap.TextChanged += TinhThanhTien;
-            txtDonGia.TextChanged += TinhThanhTien;
+            // Sự kiện cập nhật tổng tiền mỗi khi lưới dữ liệu thay đổi (Load/Thêm/Xóa)
+            dgvPhieuNhap.DataBindingComplete += (s, e) => CapNhatTongTienNhap();
         }
+
+        // --- HÀM TÍNH TỔNG TIỀN MỚI THÊM ---
+        private void CapNhatTongTienNhap()
+        {
+            decimal tongTien = 0;
+            if (dgvPhieuNhap.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dgvPhieuNhap.Rows)
+                {
+                    if (row.Cells["colThanhTien"].Value != null)
+                    {
+                        decimal val;
+                        decimal.TryParse(row.Cells["colThanhTien"].Value.ToString(), out val);
+                        tongTien += val;
+                    }
+                }
+            }
+            lblTongTienNhap.Text = "Tổng tiền nhập: " + tongTien.ToString("N0") + " VND";
+        }
+
         public void SetDuLieuSanPham(List<SanPham> list)
         {
             cboSanPham.DataSource = list;
@@ -63,13 +84,9 @@ namespace quanLyDienMayXanh.view.kho
                 txtTonHienTai.Text = "0";
             }
         }
-        private void TinhThanhTien(object sender, EventArgs e)
-        {
-            decimal sl = 0, gia = 0;
-            decimal.TryParse(txtSoLuongNhap.Text, out sl);
-            decimal.TryParse(txtDonGia.Text, out gia);
-            txtThanhTien.Text = (sl * gia).ToString("N0"); // Format số đẹp
-        }
+
+        // Đã bỏ hàm TinhThanhTien (vì không còn ô textbox để hiển thị)
+
         public PhieuNhap GetPhieuNhapFromInput()
         {
             PhieuNhap pn = new PhieuNhap();
@@ -92,9 +109,8 @@ namespace quanLyDienMayXanh.view.kho
             decimal.TryParse(txtDonGia.Text, out gia);
             pn.DonGia = gia;
 
-            decimal tt = 0;
-            decimal.TryParse(txtThanhTien.Text, out tt);
-            pn.ThanhTien = tt;
+            // LOGIC MỚI: Tự tính thành tiền ở đây
+            pn.ThanhTien = sl * gia;
 
             pn.GhiChu = txtGhiChu.Text;
 
@@ -110,7 +126,7 @@ namespace quanLyDienMayXanh.view.kho
             txtTonHienTai.Text = "0";
             txtSoLuongNhap.Text = "0";
             txtDonGia.Text = "0";
-            txtThanhTien.Text = "0";
+            // txtThanhTien.Text = "0"; // Đã bỏ
             txtGhiChu.Clear();
             idDangChon = null;
 
@@ -121,26 +137,17 @@ namespace quanLyDienMayXanh.view.kho
         {
             btnThem.Enabled = !dangChonHang;
             btnXoa.Enabled = dangChonHang;
-
-            // MỞ khóa nút Sửa khi đang chọn hàng
             btnSua.Enabled = dangChonHang;
 
-            // Màu sắc nút
             btnThem.BackColor = !dangChonHang ? Color.FromArgb(76, 175, 80) : Color.LightGray;
             btnXoa.BackColor = dangChonHang ? Color.FromArgb(244, 67, 54) : Color.LightGray;
-            // Thêm màu cho nút Sửa (ví dụ màu cam)
             btnSua.BackColor = dangChonHang ? Color.Orange : Color.LightGray;
 
-            // --- LOGIC QUAN TRỌNG: KHÓA/MỞ Ô NHẬP LIỆU ---
+            cboSanPham.Enabled = !dangChonHang;
+            cboNhaCungCap.Enabled = !dangChonHang;
+            cboNhanVien.Enabled = !dangChonHang;
+            txtMaPhieu.Enabled = !dangChonHang;
 
-            // Các thông tin KHÔNG được sửa khi đang chọn phiếu (để đảm bảo toàn vẹn dữ liệu)
-            cboSanPham.Enabled = !dangChonHang;     // Không cho đổi sản phẩm
-            cboNhaCungCap.Enabled = !dangChonHang;  // Không cho đổi NCC
-            cboNhanVien.Enabled = !dangChonHang;    // Không cho đổi nhân viên
-            txtMaPhieu.Enabled = !dangChonHang;     // Không cho sửa mã phiếu
-
-            // Các thông tin ĐƯỢC PHÉP sửa
-            // Luôn luôn cho phép nhập liệu ở các ô này (dù là Thêm mới hay Sửa)
             txtSoLuongNhap.Enabled = true;
             txtDonGia.Enabled = true;
             txtGhiChu.Enabled = true;
@@ -154,38 +161,26 @@ namespace quanLyDienMayXanh.view.kho
             {
                 DataGridViewRow row = dgvPhieuNhap.Rows[e.RowIndex];
 
-                // Ép kiểu dữ liệu của dòng đang chọn về đối tượng PhieuNhap
-                // Cách này an toàn tuyệt đối, không lo sai tên cột trên giao diện
                 if (row.DataBoundItem is PhieuNhap pn)
                 {
-                    // 1. Lưu ID để dùng cho việc Xóa
                     idDangChon = pn.ID.ToString();
 
-                    // 2. Đổ dữ liệu lên các ô nhập liệu
                     txtMaPhieu.Text = pn.MaPhieu;
-
-                    // ComboBox sẽ tự nhảy về mục có ValueMember trùng khớp
                     cboNhanVien.SelectedValue = pn.MaNV;
                     cboNhaCungCap.SelectedValue = pn.MaNCC;
                     cboSanPham.SelectedValue = pn.MaSP;
 
                     txtSoLuongNhap.Text = pn.SoLuong.ToString();
-
-                    // Format đơn giá về dạng số hoặc để nguyên tùy ý
                     txtDonGia.Text = pn.DonGia.ToString("0.##");
 
-                    // Thành tiền sẽ tự nhảy nhờ sự kiện TextChanged của DonGia/SoLuong
-                    // Hoặc gán trực tiếp:
-                    txtThanhTien.Text = pn.ThanhTien.ToString("N0");
+                    // txtThanhTien.Text = ... // Đã bỏ hiển thị ô này
 
                     txtGhiChu.Text = pn.GhiChu;
 
-                    // 3. Bật sáng các nút chức năng
                     SetTrangThaiNut(true);
                 }
             }
         }
-
 
         private void btnThem_Click(object sender, EventArgs e)
         {
