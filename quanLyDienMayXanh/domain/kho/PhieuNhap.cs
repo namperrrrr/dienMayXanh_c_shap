@@ -7,9 +7,12 @@ namespace quanLyDienMayXanh.domain.kho
         public int ID { get; set; }
         public string MaPhieu { get; set; }
         public string MaNV { get; set; }
-        public string MaNCC { get; set; }
+
+        // Đã sửa từ MaNCC thành TenNCC
+        public string TenNCC { get; set; }
+
         public string MaSP { get; set; }
-        public string TenSP { get; set; } // Dùng để hiển thị lên bảng
+        public string TenSP { get; set; }
         public int SoLuong { get; set; }
         public decimal DonGia { get; set; }
         public decimal ThanhTien { get; set; }

@@ -1,6 +1,6 @@
 ﻿using quanLyDienMayXanh.domain.kho;
 using quanLyDienMayXanh.model.kho;
-using quanLyDienMayXanh.model.nhansu; // Dùng NhanVienDAO có sẵn
+using quanLyDienMayXanh.model.nhansu;
 using quanLyDienMayXanh.view.kho;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -11,8 +11,8 @@ namespace quanLyDienMayXanh.Controller.kho
     {
         private FormNhapKho view;
         private PhieuNhapDAO dao;
-        private SanPhamDAO spDao; // Để lấy tồn kho hiện tại
-        private NhanVienDAO nvDao; // Lấy danh sách nhân viên
+        private SanPhamDAO spDao;
+        private NhanVienDAO nvDao;
 
         public PhieuNhapController(FormNhapKho view)
         {
@@ -29,13 +29,12 @@ namespace quanLyDienMayXanh.Controller.kho
             // 1. Load Combobox Sản Phẩm
             view.SetDuLieuSanPham(spDao.GetAll());
 
-            // 2. Load Combobox Nhà Cung Cấp
-            view.SetDuLieuNCC(dao.GetDSNhaCungCap());
-
-            // 3. Load Combobox Nhân Viên (Để chọn người nhập)
+            // 2. Load Combobox Nhân Viên
             view.SetDuLieuNhanVien(nvDao.GetAll());
 
-            // 4. Load DataGridView
+            // ĐÃ XÓA bước Load Nhà Cung Cấp vì giờ là nhập tay
+
+            // 3. Load DataGridView
             ShowBang(dao.GetAll());
         }
 
@@ -44,18 +43,22 @@ namespace quanLyDienMayXanh.Controller.kho
             view.dgvPhieuNhap.DataSource = null;
             view.dgvPhieuNhap.DataSource = list;
 
-            // Ẩn cột thừa nếu cần
             if (view.dgvPhieuNhap.Columns["MaSP"] != null) view.dgvPhieuNhap.Columns["MaSP"].Visible = false;
             if (view.dgvPhieuNhap.Columns["MaNV"] != null) view.dgvPhieuNhap.Columns["MaNV"].Visible = false;
-            if (view.dgvPhieuNhap.Columns["MaNCC"] != null) view.dgvPhieuNhap.Columns["MaNCC"].Visible = false;
+
+            // Hiển thị cột TenNCC
+            if (view.dgvPhieuNhap.Columns["TenNCC"] != null)
+            {
+                view.dgvPhieuNhap.Columns["TenNCC"].HeaderText = "Nhà cung cấp";
+                view.dgvPhieuNhap.Columns["TenNCC"].Visible = true;
+            }
         }
 
         public void ThemPhieu()
         {
             PhieuNhap pn = view.GetPhieuNhapFromInput();
-            if (pn == null) return; // Validate lỗi ở View
+            if (pn == null) return;
 
-            // Tạo mã phiếu tự động nếu chưa có (Ví dụ: PN + Timestamp)
             if (string.IsNullOrEmpty(pn.MaPhieu))
                 pn.MaPhieu = "PN" + System.DateTime.Now.Ticks.ToString();
 
@@ -66,14 +69,12 @@ namespace quanLyDienMayXanh.Controller.kho
                 ShowBang(dao.GetAll());
             }
         }
-        // Thêm vào class PhieuNhapController
+
         public void SuaPhieu()
         {
-            // Lấy ID phiếu đang chọn
             string idStr = view.GetIDPhieuDangChon();
             if (string.IsNullOrEmpty(idStr)) return;
 
-            // Lấy dữ liệu mới từ giao diện
             PhieuNhap pn = view.GetPhieuNhapFromInput();
             if (pn == null) return;
 
@@ -85,19 +86,18 @@ namespace quanLyDienMayXanh.Controller.kho
                 if (dao.Update(pn))
                 {
                     MessageBox.Show("Cập nhật thành công!");
-                    view.ResetForm(); // Xóa trắng form và reset trạng thái nút
-                    ShowBang(dao.GetAll()); // Load lại bảng
+                    view.ResetForm();
+                    ShowBang(dao.GetAll());
                 }
             }
         }
+
         public void XoaPhieu()
         {
-            // Cần ID, MaSP, SoLuong đã nhập để trừ lại kho
             string idStr = view.GetIDPhieuDangChon();
             if (string.IsNullOrEmpty(idStr)) return;
 
             int id = int.Parse(idStr);
-            // Lấy thông tin phiếu cũ từ input (vì đã fill form)
             PhieuNhap pnCu = view.GetPhieuNhapFromInput();
 
             if (MessageBox.Show("Bạn có chắc muốn xóa phiếu này? Tồn kho sản phẩm sẽ bị trừ đi số lượng đã nhập!", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)

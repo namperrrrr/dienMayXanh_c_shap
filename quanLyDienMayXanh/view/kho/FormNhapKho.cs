@@ -3,12 +3,7 @@ using quanLyDienMayXanh.domain;
 using quanLyDienMayXanh.domain.kho;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace quanLyDienMayXanh.view.kho
@@ -16,22 +11,16 @@ namespace quanLyDienMayXanh.view.kho
     public partial class FormNhapKho : Form
     {
         private PhieuNhapController controller;
-        private string idDangChon = null; // Lưu ID dòng đang chọn để xóa
+        private string idDangChon = null;
 
         public FormNhapKho()
         {
             InitializeComponent();
-            // Cấu hình DataGridView
             dgvPhieuNhap.AutoGenerateColumns = false;
-
-            // Gọi Controller
             controller = new PhieuNhapController(this);
-
-            // Sự kiện cập nhật tổng tiền mỗi khi lưới dữ liệu thay đổi (Load/Thêm/Xóa)
             dgvPhieuNhap.DataBindingComplete += (s, e) => CapNhatTongTienNhap();
         }
 
-        // --- HÀM TÍNH TỔNG TIỀN MỚI THÊM ---
         private void CapNhatTongTienNhap()
         {
             decimal tongTien = 0;
@@ -58,12 +47,7 @@ namespace quanLyDienMayXanh.view.kho
             cboSanPham.SelectedIndex = -1;
         }
 
-        public void SetDuLieuNCC(List<NhaCungCap> list)
-        {
-            cboNhaCungCap.DataSource = list;
-            cboNhaCungCap.DisplayMember = "TenNCC";
-            cboNhaCungCap.ValueMember = "MaNCC";
-        }
+        // ĐÃ XÓA hàm SetDuLieuNCC vì dùng TextBox nhập tay
 
         public void SetDuLieuNhanVien(List<NhanVien> list)
         {
@@ -85,8 +69,6 @@ namespace quanLyDienMayXanh.view.kho
             }
         }
 
-        // Đã bỏ hàm TinhThanhTien (vì không còn ô textbox để hiển thị)
-
         public PhieuNhap GetPhieuNhapFromInput()
         {
             PhieuNhap pn = new PhieuNhap();
@@ -95,8 +77,13 @@ namespace quanLyDienMayXanh.view.kho
             if (cboNhanVien.SelectedValue == null) { MessageBox.Show("Chưa chọn nhân viên"); return null; }
             pn.MaNV = cboNhanVien.SelectedValue.ToString();
 
-            if (cboNhaCungCap.SelectedValue == null) { MessageBox.Show("Chưa chọn nhà cung cấp"); return null; }
-            pn.MaNCC = cboNhaCungCap.SelectedValue.ToString();
+            // SỬA: Lấy dữ liệu từ TextBox nhập tay
+            if (string.IsNullOrWhiteSpace(txtNhaCungCap.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên nhà cung cấp");
+                return null;
+            }
+            pn.TenNCC = txtNhaCungCap.Text.Trim();
 
             if (cboSanPham.SelectedValue == null) { MessageBox.Show("Chưa chọn sản phẩm"); return null; }
             pn.MaSP = cboSanPham.SelectedValue.ToString();
@@ -108,10 +95,7 @@ namespace quanLyDienMayXanh.view.kho
             decimal gia = 0;
             decimal.TryParse(txtDonGia.Text, out gia);
             pn.DonGia = gia;
-
-            // LOGIC MỚI: Tự tính thành tiền ở đây
             pn.ThanhTien = sl * gia;
-
             pn.GhiChu = txtGhiChu.Text;
 
             return pn;
@@ -121,12 +105,14 @@ namespace quanLyDienMayXanh.view.kho
         {
             txtMaPhieu.Clear();
             cboSanPham.SelectedIndex = -1;
-            cboNhaCungCap.SelectedIndex = -1;
+
+            // Reset TextBox nhà cung cấp
+            txtNhaCungCap.Clear();
+
             cboNhanVien.SelectedIndex = -1;
             txtTonHienTai.Text = "0";
             txtSoLuongNhap.Text = "0";
             txtDonGia.Text = "0";
-            // txtThanhTien.Text = "0"; // Đã bỏ
             txtGhiChu.Clear();
             idDangChon = null;
 
@@ -144,7 +130,10 @@ namespace quanLyDienMayXanh.view.kho
             btnSua.BackColor = dangChonHang ? Color.Orange : Color.LightGray;
 
             cboSanPham.Enabled = !dangChonHang;
-            cboNhaCungCap.Enabled = !dangChonHang;
+
+            // Enable/Disable TextBox NCC
+            txtNhaCungCap.Enabled = !dangChonHang;
+
             cboNhanVien.Enabled = !dangChonHang;
             txtMaPhieu.Enabled = !dangChonHang;
 
@@ -167,14 +156,13 @@ namespace quanLyDienMayXanh.view.kho
 
                     txtMaPhieu.Text = pn.MaPhieu;
                     cboNhanVien.SelectedValue = pn.MaNV;
-                    cboNhaCungCap.SelectedValue = pn.MaNCC;
-                    cboSanPham.SelectedValue = pn.MaSP;
 
+                    // Đổ dữ liệu text vào TextBox NCC
+                    txtNhaCungCap.Text = pn.TenNCC;
+
+                    cboSanPham.SelectedValue = pn.MaSP;
                     txtSoLuongNhap.Text = pn.SoLuong.ToString();
                     txtDonGia.Text = pn.DonGia.ToString("0.##");
-
-                    // txtThanhTien.Text = ... // Đã bỏ hiển thị ô này
-
                     txtGhiChu.Text = pn.GhiChu;
 
                     SetTrangThaiNut(true);
@@ -182,29 +170,11 @@ namespace quanLyDienMayXanh.view.kho
             }
         }
 
-        private void btnThem_Click(object sender, EventArgs e)
-        {
-            controller.ThemPhieu();
-        }
-
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            controller.XoaPhieu();
-        }
-
-        private void btnLamMoi_Click(object sender, EventArgs e)
-        {
-            ResetForm();
-            controller.LoadData();
-        }
-        private void btnThoat_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnSua_Click(object sender, EventArgs e)
-        {
-            controller.SuaPhieu();
-        }
+        // Các event click nút giữ nguyên
+        private void btnThem_Click(object sender, EventArgs e) => controller.ThemPhieu();
+        private void btnXoa_Click(object sender, EventArgs e) => controller.XoaPhieu();
+        private void btnLamMoi_Click(object sender, EventArgs e) { ResetForm(); controller.LoadData(); }
+        private void btnThoat_Click(object sender, EventArgs e) => this.Close();
+        private void btnSua_Click(object sender, EventArgs e) => controller.SuaPhieu();
     }
 }
