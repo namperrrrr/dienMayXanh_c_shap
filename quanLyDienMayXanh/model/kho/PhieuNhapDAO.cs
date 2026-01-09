@@ -188,6 +188,26 @@ namespace quanLyDienMayXanh.model.kho
             finally { ConnectDB.CloseConnection(conn); }
         }
 
-        // ĐÃ XÓA hàm GetDSNhaCungCap() vì không dùng nữa
+        public bool CheckMaPhieu(string maPhieu)
+        {
+            MySqlConnection conn = ConnectDB.GetConnection();
+            if (conn == null) return false;
+            try
+            {
+                string sql = "SELECT COUNT(*) FROM phieu_nhap WHERE MaPhieu = @maPhieu";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@maPhieu", maPhieu);
+
+                // ExecuteScalar trả về object, cần ép kiểu về long hoặc int
+                long count = Convert.ToInt64(cmd.ExecuteScalar());
+                return count > 0; // Trả về true nếu đã tồn tại
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kiểm tra trùng mã: " + ex.Message);
+                return false;
+            }
+            finally { ConnectDB.CloseConnection(conn); }
+        }
     }
 }

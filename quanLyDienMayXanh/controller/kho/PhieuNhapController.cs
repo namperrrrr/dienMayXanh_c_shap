@@ -53,15 +53,30 @@ namespace quanLyDienMayXanh.Controller.kho
                 view.dgvPhieuNhap.Columns["TenNCC"].Visible = true;
             }
         }
-
+    
         public void ThemPhieu()
         {
             PhieuNhap pn = view.GetPhieuNhapFromInput();
             if (pn == null) return;
-
-            if (string.IsNullOrEmpty(pn.MaPhieu))
+            if (!string.IsNullOrEmpty(pn.MaPhieu))
+            {
+                if (dao.CheckMaPhieu(pn.MaPhieu))
+                {
+                    MessageBox.Show($"Mã phiếu '{pn.MaPhieu}' đã tồn tại trong hệ thống!\nVui lòng nhập mã khác hoặc để trống để tự động tạo.",
+                                    "Cảnh báo trùng mã",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    view.txtMaPhieu.Focus(); // Trỏ chuột lại vào ô mã
+                    view.txtMaPhieu.SelectAll();
+                    return; 
+                }
+            }
+            else
+            {
+                
                 pn.MaPhieu = "PN" + System.DateTime.Now.Ticks.ToString();
-
+            }
+           
             if (dao.Add(pn))
             {
                 MessageBox.Show("Nhập kho thành công! Tồn kho đã được cập nhật.");
