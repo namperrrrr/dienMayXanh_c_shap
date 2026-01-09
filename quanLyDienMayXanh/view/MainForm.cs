@@ -317,7 +317,7 @@ namespace quanLyDienMayXanh.view
                 case "Quản lý tài khoản": childForm = new FormTaiKhoan(); break;
                 case "Quản lý chức vụ": childForm = new FormChucVu(); break;
                 case "Danh sách sản phẩm": childForm = new FormSanPham(); break;
-                //case "Danh mục": childForm = new FormDanhMuc(); break;
+                case "Danh mục": childForm = new FormDanhMuc(); break;
                 case "Nhập kho": childForm = new FormNhapKho(); break;
                 // Thêm các case khác ở đây cho Kho, POS...
                 default:
