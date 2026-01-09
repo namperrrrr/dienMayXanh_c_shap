@@ -21,7 +21,7 @@ namespace quanLyDienMayXanh.Controller
             this.dmDao = new DanhMucDAO();
 
             // Đăng ký sự kiện
-            this.view.Load += (s, e) => { LoadDataDanhMuc(); LoadDataLenBang(); };
+            this.view.Load += (s, e) => { LoadDataDanhMuc(); LoadDataLenBang(); this.view.ResetForm(); };
             this.view.btnThem.Click += XuLyThem;
             this.view.btnSua.Click += XuLySua;
             this.view.btnXoa.Click += XuLyXoa;
