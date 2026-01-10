@@ -16,12 +16,11 @@ namespace quanLyDienMayXanh
             // =============================================================
             // CÁCH 1: CHẠY BÌNH THƯỜNG (CÓ ĐĂNG NHẬP) - ĐANG TẮT
             // =============================================================
-            /*
+            
             DangNhapFrame loginView = new DangNhapFrame();
             new DangNhapController(loginView);
             Application.Run(loginView);
-            */
-
+           
             // =============================================================
             // CÁCH 2: CHẠY DEV (VÀO THẲNG MAIN) - ĐANG BẬT
             // =============================================================
