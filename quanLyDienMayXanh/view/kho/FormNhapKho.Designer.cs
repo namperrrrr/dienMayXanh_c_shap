@@ -38,7 +38,7 @@
             lblMaPhieu = new Label();
             txtMaPhieu = new TextBox();
             lblNhanVien = new Label();
-            cboNhanVien = new ComboBox();
+            txtNhanVien = new TextBox();
             lblNCC = new Label();
             txtNhaCungCap = new TextBox();
             lblSanPham = new Label();
@@ -108,7 +108,7 @@
             layoutInput.Controls.Add(lblMaPhieu);
             layoutInput.Controls.Add(txtMaPhieu);
             layoutInput.Controls.Add(lblNhanVien);
-            layoutInput.Controls.Add(cboNhanVien);
+            layoutInput.Controls.Add(txtNhanVien);
             layoutInput.Controls.Add(lblNCC);
             layoutInput.Controls.Add(txtNhaCungCap);
             layoutInput.Controls.Add(lblSanPham);
@@ -172,16 +172,16 @@
             lblNhanVien.TabIndex = 2;
             lblNhanVien.Text = "Nhân viên:";
             // 
-            // cboNhanVien
+            // txtNhanVien
             // 
-            cboNhanVien.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboNhanVien.Font = new Font("Arial", 10F);
-            cboNhanVien.FormattingEnabled = true;
-            cboNhanVien.Location = new Point(3, 105);
-            cboNhanVien.Margin = new Padding(3, 2, 3, 8);
-            cboNhanVien.Name = "cboNhanVien";
-            cboNhanVien.Size = new Size(289, 24);
-            cboNhanVien.TabIndex = 2;
+            txtNhanVien.BackColor = SystemColors.ControlLight;
+            txtNhanVien.Font = new Font("Arial", 10F);
+            txtNhanVien.Location = new Point(3, 105);
+            txtNhanVien.Margin = new Padding(3, 2, 3, 8);
+            txtNhanVien.Name = "txtNhanVien";
+            txtNhanVien.ReadOnly = true;
+            txtNhanVien.Size = new Size(289, 23);
+            txtNhanVien.TabIndex = 2;
             // 
             // lblNCC
             // 
@@ -566,10 +566,11 @@
 
         private System.Windows.Forms.Label lblMaPhieu, lblNhanVien, lblNCC, lblSanPham, lblTonKho, lblSLNhap, lblDonGia, lblGhiChu;
         public System.Windows.Forms.TextBox txtMaPhieu, txtTonHienTai, txtSoLuongNhap, txtDonGia, txtGhiChu;
-
         public System.Windows.Forms.TextBox txtNhaCungCap;
-       
-        public System.Windows.Forms.ComboBox cboNhanVien, cboSanPham;
+
+        // Đã sửa: Tách cboNhanVien ra và đổi thành txtNhanVien
+        public System.Windows.Forms.TextBox txtNhanVien;
+        public System.Windows.Forms.ComboBox cboSanPham;
 
         private System.Windows.Forms.TableLayoutPanel pnlButtons;
         public System.Windows.Forms.Button btnThem, btnSua, btnXoa, btnLamMoi, btnThoat;

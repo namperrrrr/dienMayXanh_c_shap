@@ -12,14 +12,37 @@ namespace quanLyDienMayXanh.view.kho
     {
         private PhieuNhapController controller;
         private string idDangChon = null;
+        private TaiKhoan taiKhoanHienTai; // Biến lưu tài khoản đăng nhập
 
-        public FormNhapKho()
+        // Constructor nhận tham số TaiKhoan từ MainForm
+        public FormNhapKho(TaiKhoan tk)
         {
             InitializeComponent();
+            this.taiKhoanHienTai = tk; // Lưu tài khoản
+
             dgvPhieuNhap.AutoGenerateColumns = false;
             controller = new PhieuNhapController(this);
+
+            // Event tính tổng tiền
             dgvPhieuNhap.DataBindingComplete += (s, e) => CapNhatTongTienNhap();
+
+            // Hiển thị thông tin nhân viên đang đăng nhập ngay khi mở
+            SetThongTinNhanVien();
+
             SetTrangThaiNut(false);
+        }
+
+        // Hàm hiển thị thông tin nhân viên lên TextBox (chỉ đọc)
+        private void SetThongTinNhanVien()
+        {
+            if (taiKhoanHienTai != null)
+            {
+                // Hiển thị tên đăng nhập hoặc Mã NV. 
+                // Nếu bạn muốn hiển thị Họ Tên đầy đủ, cần query thêm từ CSDL hoặc lưu trong TaiKhoan
+                txtNhanVien.Text = string.IsNullOrEmpty(taiKhoanHienTai.MaNV)
+                                    ? taiKhoanHienTai.TenDangNhap
+                                    : taiKhoanHienTai.MaNV;
+            }
         }
 
         private void CapNhatTongTienNhap()
@@ -48,12 +71,10 @@ namespace quanLyDienMayXanh.view.kho
             cboSanPham.SelectedIndex = -1;
         }
 
-     
+        // Hàm này giữ lại để tránh lỗi nếu Controller gọi, nhưng để rỗng vì không dùng ComboBox nữa
         public void SetDuLieuNhanVien(List<NhanVien> list)
         {
-            cboNhanVien.DataSource = list;
-            cboNhanVien.DisplayMember = "HoTen";
-            cboNhanVien.ValueMember = "MaNV";
+            // Không làm gì cả
         }
 
         private void cboSanPham_SelectedIndexChanged(object sender, EventArgs e)
@@ -74,10 +95,14 @@ namespace quanLyDienMayXanh.view.kho
             PhieuNhap pn = new PhieuNhap();
             pn.MaPhieu = txtMaPhieu.Text.Trim();
 
-            if (cboNhanVien.SelectedValue == null) { MessageBox.Show("Chưa chọn nhân viên"); return null; }
-            pn.MaNV = cboNhanVien.SelectedValue.ToString();
+            // LOGIC MỚI: Lấy MaNV từ tài khoản đăng nhập, không lấy từ input
+            if (taiKhoanHienTai == null || string.IsNullOrEmpty(taiKhoanHienTai.MaNV))
+            {
+                MessageBox.Show("Lỗi: Không xác định được nhân viên thực hiện!");
+                return null;
+            }
+            pn.MaNV = taiKhoanHienTai.MaNV;
 
-            // SỬA: Lấy dữ liệu từ TextBox nhập tay
             if (string.IsNullOrWhiteSpace(txtNhaCungCap.Text))
             {
                 MessageBox.Show("Vui lòng nhập tên nhà cung cấp");
@@ -105,11 +130,11 @@ namespace quanLyDienMayXanh.view.kho
         {
             txtMaPhieu.Clear();
             cboSanPham.SelectedIndex = -1;
-
-            // Reset TextBox nhà cung cấp
             txtNhaCungCap.Clear();
 
-            cboNhanVien.SelectedIndex = -1;
+            // Reset về nhân viên đang đăng nhập
+            SetThongTinNhanVien();
+
             txtTonHienTai.Text = "0";
             txtSoLuongNhap.Text = "0";
             txtDonGia.Text = "0";
@@ -130,11 +155,10 @@ namespace quanLyDienMayXanh.view.kho
             btnSua.BackColor = dangChonHang ? Color.Orange : Color.LightGray;
 
             cboSanPham.Enabled = !dangChonHang;
-
-            // Enable/Disable TextBox NCC
             txtNhaCungCap.Enabled = !dangChonHang;
 
-            cboNhanVien.Enabled = !dangChonHang;
+            // Không cần xử lý enable cho txtNhanVien vì nó luôn ReadOnly
+
             txtMaPhieu.Enabled = !dangChonHang;
 
             txtSoLuongNhap.Enabled = true;
@@ -155,9 +179,10 @@ namespace quanLyDienMayXanh.view.kho
                     idDangChon = pn.ID.ToString();
 
                     txtMaPhieu.Text = pn.MaPhieu;
-                    cboNhanVien.SelectedValue = pn.MaNV;
 
-                    // Đổ dữ liệu text vào TextBox NCC
+                    // Khi xem phiếu cũ, hiển thị Mã NV của người tạo phiếu đó
+                    txtNhanVien.Text = pn.MaNV;
+
                     txtNhaCungCap.Text = pn.TenNCC;
 
                     cboSanPham.SelectedValue = pn.MaSP;
@@ -170,11 +195,25 @@ namespace quanLyDienMayXanh.view.kho
             }
         }
 
-        // Các event click nút giữ nguyên
-        private void btnThem_Click(object sender, EventArgs e) => controller.ThemPhieu();
-        private void btnXoa_Click(object sender, EventArgs e) => controller.XoaPhieu();
-        private void btnLamMoi_Click(object sender, EventArgs e) { ResetForm(); controller.LoadData(); }
-        private void btnThoat_Click(object sender, EventArgs e) => this.Close();
-        private void btnSua_Click(object sender, EventArgs e) => controller.SuaPhieu();
+        // Các event click nút
+        private void btnThem_Click(object sender, EventArgs e) { 
+            controller.ThemPhieu();
+        }
+        private void btnXoa_Click(object sender, EventArgs e) { 
+            controller.XoaPhieu(); 
+        }
+
+        // Nút làm mới sẽ gọi ResetForm -> Tự động điền lại tên NV đăng nhập
+        private void btnLamMoi_Click(object sender, EventArgs e) { 
+            ResetForm(); 
+            controller.LoadData(); 
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e) { 
+            this.Close(); 
+        }
+        private void btnSua_Click(object sender, EventArgs e) {
+            controller.SuaPhieu(); 
+        }
     }
 }

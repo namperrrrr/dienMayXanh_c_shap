@@ -318,7 +318,7 @@ namespace quanLyDienMayXanh.view
                 case "Quản lý chức vụ": childForm = new FormChucVu(); break;
                 case "Danh sách sản phẩm": childForm = new FormSanPham(); break;
                 case "Danh mục": childForm = new FormDanhMuc(); break;
-                case "Nhập kho": childForm = new FormNhapKho(); break;
+                case "Nhập kho": childForm = new FormNhapKho(this.taiKhoanHienTai); break;
                 // Thêm các case khác ở đây cho Kho, POS...
                 default:
                     this.pnlCards.Controls.Add(new Label
