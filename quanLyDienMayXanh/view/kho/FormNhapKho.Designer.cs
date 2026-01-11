@@ -187,7 +187,7 @@
             // 
             lblNCC.AutoSize = true;
             lblNCC.Font = new Font("Arial", 10F, FontStyle.Bold);
-            lblNCC.Location = new Point(3, 137);
+            lblNCC.Location = new Point(3, 136);
             lblNCC.Margin = new Padding(3, 0, 3, 4);
             lblNCC.Name = "lblNCC";
             lblNCC.Size = new Size(106, 16);
@@ -197,7 +197,7 @@
             // txtNhaCungCap
             // 
             txtNhaCungCap.Font = new Font("Arial", 10F);
-            txtNhaCungCap.Location = new Point(3, 159);
+            txtNhaCungCap.Location = new Point(3, 158);
             txtNhaCungCap.Margin = new Padding(3, 2, 3, 8);
             txtNhaCungCap.Name = "txtNhaCungCap";
             txtNhaCungCap.Size = new Size(289, 23);
@@ -207,7 +207,7 @@
             // 
             lblSanPham.AutoSize = true;
             lblSanPham.Font = new Font("Arial", 10F, FontStyle.Bold);
-            lblSanPham.Location = new Point(3, 190);
+            lblSanPham.Location = new Point(3, 189);
             lblSanPham.Margin = new Padding(3, 0, 3, 4);
             lblSanPham.Name = "lblSanPham";
             lblSanPham.Size = new Size(79, 16);
@@ -219,7 +219,7 @@
             cboSanPham.DropDownStyle = ComboBoxStyle.DropDownList;
             cboSanPham.Font = new Font("Arial", 10F);
             cboSanPham.FormattingEnabled = true;
-            cboSanPham.Location = new Point(3, 212);
+            cboSanPham.Location = new Point(3, 211);
             cboSanPham.Margin = new Padding(3, 2, 3, 8);
             cboSanPham.Name = "cboSanPham";
             cboSanPham.Size = new Size(289, 24);
@@ -230,7 +230,7 @@
             // 
             lblTonKho.AutoSize = true;
             lblTonKho.Font = new Font("Arial", 10F, FontStyle.Bold);
-            lblTonKho.Location = new Point(3, 244);
+            lblTonKho.Location = new Point(3, 243);
             lblTonKho.Margin = new Padding(3, 0, 3, 4);
             lblTonKho.Name = "lblTonKho";
             lblTonKho.Size = new Size(123, 16);
@@ -241,7 +241,7 @@
             // 
             txtTonHienTai.BackColor = SystemColors.ControlLight;
             txtTonHienTai.Font = new Font("Arial", 10F);
-            txtTonHienTai.Location = new Point(3, 266);
+            txtTonHienTai.Location = new Point(3, 265);
             txtTonHienTai.Margin = new Padding(3, 2, 3, 8);
             txtTonHienTai.Name = "txtTonHienTai";
             txtTonHienTai.ReadOnly = true;
@@ -252,7 +252,7 @@
             // 
             lblSLNhap.AutoSize = true;
             lblSLNhap.Font = new Font("Arial", 10F, FontStyle.Bold);
-            lblSLNhap.Location = new Point(3, 297);
+            lblSLNhap.Location = new Point(3, 296);
             lblSLNhap.Margin = new Padding(3, 0, 3, 4);
             lblSLNhap.Name = "lblSLNhap";
             lblSLNhap.Size = new Size(114, 16);
@@ -262,18 +262,17 @@
             // txtSoLuongNhap
             // 
             txtSoLuongNhap.Font = new Font("Arial", 10F);
-            txtSoLuongNhap.Location = new Point(3, 319);
+            txtSoLuongNhap.Location = new Point(3, 318);
             txtSoLuongNhap.Margin = new Padding(3, 2, 3, 8);
             txtSoLuongNhap.Name = "txtSoLuongNhap";
             txtSoLuongNhap.Size = new Size(289, 23);
             txtSoLuongNhap.TabIndex = 6;
-            txtSoLuongNhap.Text = "0";
             // 
             // lblDonGia
             // 
             lblDonGia.AutoSize = true;
             lblDonGia.Font = new Font("Arial", 10F, FontStyle.Bold);
-            lblDonGia.Location = new Point(3, 350);
+            lblDonGia.Location = new Point(3, 349);
             lblDonGia.Margin = new Padding(3, 0, 3, 4);
             lblDonGia.Name = "lblDonGia";
             lblDonGia.Size = new Size(104, 16);
@@ -283,18 +282,17 @@
             // txtDonGia
             // 
             txtDonGia.Font = new Font("Arial", 10F);
-            txtDonGia.Location = new Point(3, 372);
+            txtDonGia.Location = new Point(3, 371);
             txtDonGia.Margin = new Padding(3, 2, 3, 8);
             txtDonGia.Name = "txtDonGia";
             txtDonGia.Size = new Size(289, 23);
             txtDonGia.TabIndex = 7;
-            txtDonGia.Text = "0";
             // 
             // lblGhiChu
             // 
             lblGhiChu.AutoSize = true;
             lblGhiChu.Font = new Font("Arial", 10F, FontStyle.Bold);
-            lblGhiChu.Location = new Point(3, 403);
+            lblGhiChu.Location = new Point(3, 402);
             lblGhiChu.Margin = new Padding(3, 0, 3, 4);
             lblGhiChu.Name = "lblGhiChu";
             lblGhiChu.Size = new Size(65, 16);
@@ -304,7 +302,7 @@
             // txtGhiChu
             // 
             txtGhiChu.Font = new Font("Arial", 10F);
-            txtGhiChu.Location = new Point(3, 425);
+            txtGhiChu.Location = new Point(3, 424);
             txtGhiChu.Margin = new Padding(3, 2, 3, 11);
             txtGhiChu.Name = "txtGhiChu";
             txtGhiChu.Size = new Size(289, 23);
