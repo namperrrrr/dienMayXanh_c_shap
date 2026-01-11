@@ -98,8 +98,8 @@ namespace quanLyDienMayXanh.view.kho
             txtMaSP.Clear();
             txtTenSP.Clear();
             txtThuongHieu.Clear();
-            txtGiaNhap.Text = "0";
-            txtGiaBan.Text = "0";
+            txtGiaNhap.Clear();
+            txtGiaBan.Clear();
             txtBaoHanh.Clear();
             txtMoTa.Clear();
 
@@ -107,7 +107,21 @@ namespace quanLyDienMayXanh.view.kho
             tenHinhAnhHienTai = "";
             picHinhAnh.Image = null;
 
-            cboDanhMuc.SelectedIndex = -1;
+            if (cboDanhMuc.Items.Count > 0)
+            {
+                cboDanhMuc.SelectedIndex = 0;
+            }
+            else
+            {
+                cboDanhMuc.SelectedIndex = -1;
+            }
+
+            // 2. Cài mặc định cho Đơn Vị Tính (txtDVT)
+            // Lưu ý: txtDVT của bạn là ComboBox, nên cũng set Index = 0
+            if (txtDVT.Items.Count > 0)
+            {
+                txtDVT.SelectedIndex = 0;
+            }
             cboTrangThaiHang.SelectedIndex = 0;
             txtMaSP.Enabled = true;
             SetTrangThaiNut(false);

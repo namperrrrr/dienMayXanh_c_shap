@@ -68,7 +68,14 @@ namespace quanLyDienMayXanh.view.kho
             cboSanPham.DataSource = list;
             cboSanPham.DisplayMember = "TenSP";
             cboSanPham.ValueMember = "MaSP";
-            cboSanPham.SelectedIndex = -1;
+            if (cboSanPham.Items.Count > 0)
+            {
+                cboSanPham.SelectedIndex = 0;
+            }
+            else
+            {
+                cboSanPham.SelectedIndex = -1;
+            }
         }
 
         // Hàm này giữ lại để tránh lỗi nếu Controller gọi, nhưng để rỗng vì không dùng ComboBox nữa
@@ -129,15 +136,22 @@ namespace quanLyDienMayXanh.view.kho
         public void ResetForm()
         {
             txtMaPhieu.Clear();
-            cboSanPham.SelectedIndex = -1;
+            if (cboSanPham.Items.Count > 0)
+            {
+                cboSanPham.SelectedIndex = 0;
+            }
+            else
+            {
+                cboSanPham.SelectedIndex = -1;
+            }
             txtNhaCungCap.Clear();
 
             // Reset về nhân viên đang đăng nhập
             SetThongTinNhanVien();
 
             txtTonHienTai.Text = "0";
-            txtSoLuongNhap.Text = "0";
-            txtDonGia.Text = "0";
+            txtSoLuongNhap.Clear();
+            txtDonGia.Clear();
             txtGhiChu.Clear();
             idDangChon = null;
 
